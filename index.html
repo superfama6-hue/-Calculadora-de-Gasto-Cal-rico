@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Calculadora de Gasto Calórico - Drogaria Superfama</title>
@@ -46,11 +45,25 @@ function calc(){
 let p=parseFloat(peso.value),t=parseFloat(tempo.value),met=parseFloat(atividade.value);
 if(!p||!t){alert("Preencha os campos.");return;}
 let kcal=met*p*(t/60);
-kcal.textContent=Math.round(kcal)+" kcal";
+
 document.getElementById("kcal").textContent=Math.round(kcal)+" kcal";
 document.getElementById("agua").textContent=Math.round((p*10+t*5))+" ml";
-let pizza=(kcal/285).toFixed(1),hamb=(kcal/300).toFixed(1),banana=(kcal/90).toFixed(1),refri=(kcal/140).toFixed(1);
-eq.innerHTML=`🍕 ${pizza} fatia(s) de pizza<br>🍔 ${hamb} hambúrguer(es)<br>🍌 ${banana} banana(s)<br>🥤 ${refri} lata(s) de refrigerante`;
+
+// Função interna para deixar o texto bonito e sem números quebrados (ex: 0.4)
+function formatarEquivalente(valor, substantivo) {
+    let arredondado = Math.round(valor);
+    if (arredondado === 0) {
+        return `Menos de 1 ${substantivo}`;
+    }
+    return `${arredondado} ${substantivo}`;
+}
+
+let pizza = formatarEquivalente(kcal/285, "fatia(s) de pizza");
+let hamb = formatarEquivalente(kcal/300, "hambúrguer(es)");
+let banana = formatarEquivalente(kcal/90, "banana(s)");
+let refri = formatarEquivalente(kcal/140, "lata(s) de refrigerante");
+
+eq.innerHTML=`🍕 ${pizza}<br>🍔 ${hamb}<br>🍌 ${banana}<br>🥤 ${refri}`;
 benef.innerHTML="✔ Ajuda a controlar o peso.<br>✔ Melhora a saúde cardiovascular.<br>✔ Reduz o estresse.<br>✔ Fortalece músculos e resistência.";
 resultado.style.display="block";
 resultado.scrollIntoView({behavior:"smooth"});
