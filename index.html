@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculadora de Gasto Calórico - Drogaria Superfama</title>
+<style>
+*{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}body{margin:0;background:#f4f7fb;color:#333}
+header{background:linear-gradient(135deg,#004aad,#0066cc);color:#fff;text-align:center;padding:35px}
+.container{max-width:900px;margin:auto;padding:20px}
+.card{background:#fff;padding:22px;border-radius:18px;box-shadow:0 6px 20px rgba(0,0,0,.08);margin-bottom:20px}
+input,select{width:100%;padding:14px;border:2px solid #ddd;border-radius:12px;margin:8px 0 15px}
+button{width:100%;padding:16px;background:#ff1744;color:#fff;border:0;border-radius:12px;font-size:18px;font-weight:bold;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.info{background:#fff;padding:18px;border-radius:15px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.08)}
+.numero{font-size:34px;font-weight:bold;color:#ff1744}
+.whatsapp{display:block;text-align:center;text-decoration:none;background:#25D366;color:#fff;padding:16px;border-radius:12px;font-weight:bold}
+#resultado{display:none}
+</style></head><body>
+<header><h1>🔥 Calculadora de Gasto Calórico</h1><p>Drogaria Superfama</p></header>
+<div class="container">
+<div class="card">
+<label>Peso (kg)</label><input id="peso" type="number" step="0.1">
+<label>Tempo (minutos)</label><input id="tempo" type="number">
+<label>Atividade</label>
+<select id="atividade">
+<option value="3.5">🚶 Caminhada leve</option><option value="5">🚶 Caminhada rápida</option>
+<option value="9.8">🏃 Corrida</option><option value="8">🚴 Bicicleta</option>
+<option value="6">🏋️ Musculação</option><option value="8.3">🏊 Natação</option>
+<option value="7">⚽ Futebol</option><option value="8">🏀 Basquete</option>
+<option value="12.3">🪢 Pular corda</option><option value="6.5">💃 Dança</option>
+<option value="4.5">🧹 Faxina</option><option value="2.5">🧘 Yoga</option>
+</select>
+<button onclick="calc()">CALCULAR</button>
+</div>
+<div id="resultado">
+<div class="grid">
+<div class="info"><h3>Calorias</h3><div id="kcal" class="numero"></div></div>
+<div class="info"><h3>Água</h3><div id="agua" class="numero"></div></div>
+</div>
+<div class="card"><h2>🍔 Equivale aproximadamente a</h2><p id="eq"></p></div>
+<div class="card"><h2>❤️ Benefícios</h2><p id="benef"></p></div>
+<div class="card"><h2>💊 Produtos encontrados na Drogaria</h2><ul><li>Isotônicos</li><li>Creatina</li><li>Whey Protein</li><li>Multivitamínicos</li><li>Ômega 3</li></ul></div>
+<a class="whatsapp" target="_blank" href="https://wa.me/556193166427?text=Olá!%20Usei%20a%20calculadora%20de%20gasto%20calórico%20e%20gostaria%20de%20orientações.">💬 Falar com a Drogaria Superfama</a>
+</div></div>
+<script>
+function calc(){
+let p=parseFloat(peso.value),t=parseFloat(tempo.value),met=parseFloat(atividade.value);
+if(!p||!t){alert("Preencha os campos.");return;}
+let kcal=met*p*(t/60);
+kcal.textContent=Math.round(kcal)+" kcal";
+document.getElementById("kcal").textContent=Math.round(kcal)+" kcal";
+document.getElementById("agua").textContent=Math.round((p*10+t*5))+" ml";
+let pizza=(kcal/285).toFixed(1),hamb=(kcal/300).toFixed(1),banana=(kcal/90).toFixed(1),refri=(kcal/140).toFixed(1);
+eq.innerHTML=`🍕 ${pizza} fatia(s) de pizza<br>🍔 ${hamb} hambúrguer(es)<br>🍌 ${banana} banana(s)<br>🥤 ${refri} lata(s) de refrigerante`;
+benef.innerHTML="✔ Ajuda a controlar o peso.<br>✔ Melhora a saúde cardiovascular.<br>✔ Reduz o estresse.<br>✔ Fortalece músculos e resistência.";
+resultado.style.display="block";
+resultado.scrollIntoView({behavior:"smooth"});
+}
+</script></body></html>
